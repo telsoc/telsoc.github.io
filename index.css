@@ -1,7 +1,8 @@
 /* Defaults and variables */
 
 :root {
-    --background-color: #FAFAFA;
+    --background-color: #FBF8EB; 
+    --secondary-background-color: #F7F7D8;
     --font-color: #525252;
     --lightfont-color: #747474;
     --link-color: #7272A5;
