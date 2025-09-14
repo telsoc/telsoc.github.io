@@ -1,8 +1,3 @@
-<!--TODO
-Pick at where omf is needed
-Finish styling
-design logo with aria (and make it favicon)
--->
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,23 +6,30 @@ design logo with aria (and make it favicon)
         <link rel="stylesheet" href="./index.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="Official website for Aberystwyth University telsoc" />
+        <script src="./tte.js"></script>
     </head>
     
     <body>
-        <header id="head-main">
-            <h1>Telsoc</h1>
-            <img src="" width="128" height="128" id="logo" alt="satellite emoji" />
-            <nav id="links">
-                <a href="#">Home</a>
-                <a href="#">About</a>
-                <a href="#">Blog</a>
-                <a href="#">Whitepapers</a>
-            </nav>
-        </header>
-        
-        <footer>
+        <template id="telsoc-navbar" src="./components/nav.html"></template>
+        <template id="telsoc-footer" src="./components/footer.html"></template>
 
-        </footer>
+        <telsoc-navbar></telsoc-navbar>
+        <noscript>
+            <header>
+                <nav>
+                    <a href="#">Home</a>
+                    <a href="#">About</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Whitepapers</a>
+                </nav>
+            </header>
+        </noscript>
+        
+        <telsoc-footer></telsoc-footer>
+        <noscript>
+            <hr>
+            Copyright 2025, Telsoc Group
+        </noscript>
 
     </body>
 </html>

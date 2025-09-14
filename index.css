@@ -3,6 +3,7 @@
 :root {
     --background-color: #FAFAFA;
     --font-color: #525252;
+    --lightfont-color: #747474;
     --link-color: #7272A5;
     --link-hover-color: #7272C7;
 }
@@ -34,61 +35,4 @@ a, a:visited {
 
 a:hover {
     color: var(--link-hover-color);
-}
-
-/* Header */
-#head-main {
-    display: flex;
-    
-    padding: 1em 0;
-    
-    height: fit-content;
-    width: 100%;
-    align-items: center;
-    
-    border-bottom: solid 1px black;
-    
-    gap: 4em;
-}
-
-#head-main h1 {
-    margin: 0;
-    font-size: 8em;
-    font-weight: bold;
-}
-
-#links {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    
-    height: 100%;
-}
-
-#links a, a:visited {
-    color: var(--link-color);
-    
-    font-size: 3em;
-    font-weight: bold;
-    text-decoration: none;
-    text-align: center;
-}
-
-#links a:hover {
-    color: var(--link-hover-color);
-}
-
-@media only screen and (max-width: 1280px) {
-    #head-main {
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 1em;
-    }
-    
-    #head-main h1 {
-        font-size: 4em;
-    }
-    
-    #links a, a:visited {
-        font-size: 2em;
-    }
 }
