@@ -1,7 +1,13 @@
 // Telsoc Template Engine
 // Repurposes all template tags with id's, automatically producing custom web
 // components for them.
-// Also handles importing templates
+// Also handles importing templates using src attribute on a template tag.
+//
+// Cheatsheet:
+//  Local templates
+//      <template id="tag-name-with-hyphen"></template>
+//  Importing file as template
+//      <template id="tag-name-with-hyphen" src="path"></template>
 
 document.addEventListener("DOMContentLoaded", () => {
 
