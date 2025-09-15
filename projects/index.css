@@ -1,0 +1,44 @@
+h1 {
+    text-align: center;
+}
+
+#projects {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.project {
+    margin: 1em auto 1em auto;
+
+    border-radius: 20px;
+    background-color: var(--secondary-background-color);
+
+    padding: 1em;
+    width: 22em;
+    height: 22em;
+
+    & > a {
+        text-wrap: nowrap;
+        
+        &::before {
+            content: "[";
+        }
+        
+        &::after {
+            content: "]";
+        }
+    }
+
+    & > div {
+        margin-top: 1em;
+    }
+
+    & > div > img {
+        float: left;
+    }
+
+    & > div > h2 {
+        margin: 0;       
+    }
+}
+
