@@ -29,7 +29,6 @@ function includeTemplate(path, ...params) {
     
     // Collecting arg names
     const argNames = [...data.matchAll(/\$\{([^}]+)\}/g)].map(match => match[0].slice(2, -1));
-    console.log(argNames);
     
     // Applying args
     return new Function(...argNames, `return \`${data}\`;`)(...params);
@@ -64,8 +63,10 @@ function processDir(indir, outdir) {
 
                 mkdirSync(path.dirname(outPath), { recursive: true });
                 writeFileSync(outPath, evald, "utf8");
-            } else 
+            } else {
+                mkdirSync(path.dirname(outPath), { recursive: true });
                 copyFileSync(inPath, outPath);
+            }
         }
     }
 }

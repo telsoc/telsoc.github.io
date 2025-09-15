@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Test</title>
+        <meta charset="utf-8">
+        <title>Telsoc</title>
+        <link rel="stylesheet" href="./index.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Official website for Telsoc" />
     </head>
-
-
+    
     <body>
-        ${includeTemplate("./src/test.dev.txt", "gurt")}
-        ${5+5}
+        ${include("./src/nav.dev.html")}
+
+	<h1>Welcome to the Website of Telsoc!</h1>
+	<p>We are a collection of students (though people are welcome regardless of background), with interests in telecommunications technologies, including radio and computer networking.</p>
+	<p>You can contact us at our <a href="#">Discord Server</a>.</p>
+	<p>We have a collection of projects (see above link), and anyone is welcome to join in with them.</p>
+	<p>To be completely honest, we're pretty small at the moment, and don't have any gear (beyond our laptops), though we are actively looking into things (ham radio kinda stuff). If nothing else, we're (and I hope you'd agree if you speak to us) a friendly group, and more than happy to discuss things.</p>
+	
+        ${include("./src/footer.dev.html")}
     </body>
 </html>

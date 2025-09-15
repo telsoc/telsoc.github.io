@@ -1,0 +1,39 @@
+/* Defaults and variables */
+
+:root {
+    --background-color: #FBF8EB; 
+    --secondary-background-color: #F7F7D8;
+    --font-color: #525252;
+    --lightfont-color: #747474;
+    --link-color: #7272A5;
+    --link-hover-color: #7272C7;
+}
+
+* {
+    font-family: sans-serif;
+}
+
+body {
+    width: 80em;
+    margin: auto;
+    
+    background-color: var(--background-color);
+}
+
+@media only screen and (max-width: 1280px) {
+    body {
+        width: 100%;        
+    }
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    color: var(--font-color);
+}
+
+a, a:visited {
+    color: var(--link-color);
+}
+
+a:hover {
+    color: var(--link-hover-color);
+}

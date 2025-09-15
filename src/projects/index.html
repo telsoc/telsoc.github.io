@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Telsoc</title>
+        <link rel="stylesheet" href="../index.css">
+        <link rel="stylesheet" href="./index.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Official website for Aberystwyth University telsoc" />
+    </head>
+    
+    <body>
+        ${include("./src/nav.dev.html")}
+
+        <h1>Active Projects</h1>
+
+        <div id="projects">
+            ${includeTemplate("./src/projects/project.dev.html", "#", "", "Title", "Description")}
+        </div>
+
+        <h1>Completed Projects</h1>
+        
+        ${include("./src/footer.dev.html")}
+    </body>
+</html>
