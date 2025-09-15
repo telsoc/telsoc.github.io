@@ -16,15 +16,23 @@ const evalTemplate = (template) => new Function(
                                         (...evalScope);                 // Call
 
 
+/// Includes the contents of a file exactly as-is
 function include(filepath, { encoding = "utf8" } = {}) {
     const data = readFileSync(filepath, encoding);
     return data;
 }
 
 
-function includeTemplate(path, { encoding = "utf8" } = {}, ...params) {
-    const data = include(path, encoding);
-    return evalTemplate(data);
+/// Includes a file but treats it as a template string to apply ...params to
+function includeTemplate(path, ...params) {
+    const data = include(path, "utf8");         // TODO: allow multiple encodings
+    
+    // Collecting arg names
+    const argNames = [...data.matchAll(/\$\{([^}]+)\}/g)].map(match => match[0].slice(2, -1));
+    console.log(argNames);
+    
+    // Applying args
+    return new Function(...argNames, `return \`${data}\`;`)(...params);
 }
 
 
