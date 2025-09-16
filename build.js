@@ -7,7 +7,8 @@ const path = require("path");
 // writing pages.
 // All functions must evaluate to a string.
 
-const evalScope = [include, includeTemplate]    // It is required to explicitly 
+const evalScope = [include, includeTemplate, includeEval]    
+                                                // It is required to explicitly 
                                                 // pass the functions that we 
                                                 // allow the preprocesser to use
 const evalTemplate = (template) => new Function(
@@ -34,6 +35,11 @@ function includeTemplate(path, ...params) {
     return new Function(...argNames, `return \`${data}\`;`)(...params);
 }
 
+/// Includes a file but treats it as a template string to call evalTemplate on
+function includeEval(path, { encoding = "utf8" } = {}) {
+    const data = include(path, encoding);
+    return evalTemplate(data);
+}
 
 // Main build process
 if (!process.argv[2]) {
