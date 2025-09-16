@@ -1,3 +1,103 @@
+/** Documentation - build.js
+ *  
+ *  Introduction
+ *          build.js is responsible for turning our development (src directory)
+ *      into static HTML that can be rendered on github pages. This is stored
+ *      in a build directory.
+ *          The script runs through every file in the src path and treats them
+ *      as JavaScript template literals - that means that it will evaluate any
+ *      expression inside ${this block}.
+ *          This in itself is very powerful, but there are a few functions 
+ *      provided that provide basic functionality by themselves, meaning you
+ *      don't have to rewrite them.
+ *
+ *  Command line use (how to build)
+ *          build.js works on node, and is designed to work with only the 
+ *      standard library.
+ *          The script will make a new /build directory in the current working
+ *      directory, then start the process of iterating, evaluating and copying
+ *      the scripts.
+ *
+ *      Simply run
+ *          node build.js <target>
+ *
+ *          In the event of an error, it will be a node runtime error. Please
+ *      read the error in full, usually only a small part is relevant to an 
+ *      actual development issue.
+ *
+ *  Writing files in the src directory
+ *          Remember, all files in the src directory will be evaluated as 
+ *      template literals. Meaning most, if not all, Javascript goes.
+ *          But that doesn't mean there aren't things to keep in mind.
+ *
+ *      1. Files that follow *.dev.* will be ignored
+ *              These files won't be copied into the build directory - but they
+ *          can still be used in template literals.
+ *
+ *      2. Write paths with the working directory in mind
+ *              All paths will be executed from the working directory. In this
+ *          project that is assumed to be /website. So, if I wanted to use the
+ *          include function, I have to write the path relative to the /website
+ *          directory.
+ *          
+ *      3. Only .html files actually get evaluated as template strings
+ *              This is to ensure things like images don't get misinterpreted
+ *          by the build script. It is extremely easy to extend this 
+ *          functionality to any file type, and there is plans to make this
+ *          possible for the RSS feed.
+ *
+ *  Functions and their uses
+ *          This is the meat and potatoes of build.js. As a developer you only
+ *      have to worry about this.
+ *
+ *
+ *          include(path[, encoding=utf8])
+ *                  The include function returns the data as-is written in a 
+ *              file. Encoding by default is utf8.
+ *
+ *                  Example:
+ *                      ${include("./src/nav.dev.html")}
+ *
+ *                  Remember that paths are relative to the current working
+ *              directory, which is assumed to be /website.
+ *
+ *          includeTemplate(path, ...params)
+ *                  The includeTemplate function includes a file, but treats
+ *              the data as another template to evaluate. When doing this, the 
+ *              file is expected to have template-literal like blocks with 
+ *              named ${identifiers} in them.
+ *                  ...params is a group of parameters that you wish to replace
+ *              the identifiers with.
+ *                  If this is confusing, the example may help illustrate.
+ *
+ *                  Example:
+ *                      example.html
+ *                          <h1>${title}</h1>
+ *
+ *                      ${includeTemplate("./src/example.html", "My cool title")}
+ *
+ *                  It is important to note that, when evaluated, the named 
+ *              identifier "title" will be set equal to "My cool title". At the
+ *              moment it is not possible for the target component to have 
+ *              complex functionality within it's ${}s. But I hope in the 
+ *              future to refactor this function to allow for it.
+ *                  It is also important to note that having other encodings is
+ *              also not possible. 
+ *
+ *
+ *          includeEval(path[, encoding=utf8)
+ *                  includeEval includes a file but evaluates it as a raw 
+ *              template. The difference between this and includeTemplate is
+ *              that this function does not map it's evaluation to parsed
+ *              parameters. Instead it just performs it as if it were another
+ *              file.
+ *                  This is useful when you want to include components that
+ *              include other components within them.
+ *
+ *                  Example:
+ *                      ${includeEval("./src/nav.dev.html")}
+ */
+
 const { readFileSync, writeFileSync, copyFileSync, rmSync, readdirSync, lstatSync, mkdirSync } = require("fs");
 const path = require("path");
 
@@ -35,11 +135,13 @@ function includeTemplate(path, ...params) {
     return new Function(...argNames, `return \`${data}\`;`)(...params);
 }
 
+
 /// Includes a file but treats it as a template string to call evalTemplate on
 function includeEval(path, { encoding = "utf8" } = {}) {
     const data = include(path, encoding);
     return evalTemplate(data);
 }
+
 
 // Main build process
 if (!process.argv[2]) {
