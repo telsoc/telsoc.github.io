@@ -2,8 +2,8 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Telsoc</title>
-        <link rel="stylesheet" href="../index.css">
+        <title>Telsoc Blog</title>
+        <link rel="stylesheet" href="/index.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="Official website for Aberystwyth University telsoc" />
     </head>
@@ -11,7 +11,20 @@
     <body>
         ${include("./src/nav.dev.html")}
 
-        <p>WIP</p>
+        ${
+            readdirSync("./src/blog/", {withFileTypes: true})
+                .filter(path => path.isDirectory())
+                .map(dir => {
+                    const template = "./src/blog/postpreview.dev.html";
+                    let args = JSON.parse(include(`${dir.path}${dir.name}/post.dev.json`));
+
+                    if (!args.link)
+                        args.link = "/blog/" + dir.name;
+
+                    return includeTemplate(template, args);
+                })
+                .join("")
+        }
         
         ${include("./src/footer.dev.html")}
     </body>

@@ -86,15 +86,10 @@ const path = require("path");
 // writing pages.
 // All functions must evaluate to a string.
 
-const evalScope = [include, includeTemplate]    
-                                                // It is required to explicitly 
-                                                // pass the functions that we 
-                                                // allow the preprocesser to use
-const evalTemplate = (template) => new Function(
-                                    ...evalScope.map(f => f.name),      // Scope
-                                    `return \`${template}\`;`)          // Code
-                                        (...evalScope);                 // Call
-
+const evalTemplate = (template) => {
+    //console.log(template);
+    return eval(`\`${template}\``);
+}
 
 /// Includes the contents of a file exactly as-is
 function include(filepath, { encoding = "utf8" } = {}) {
@@ -107,7 +102,9 @@ function include(filepath, { encoding = "utf8" } = {}) {
 function includeTemplate(path, params, { encoding = "utf8" } = {}) {
     const data = include(path, encoding);
 
-    return new Function(...Object.keys(params), `return \`${data}\`;`)(...Object.values(params));
+//    return new Function(...Object.keys(params), `return \`${data}\`;`)(...Object.values(params));
+    with (params) 
+        return eval(`\`${data}\``);
 }
 
 
@@ -133,7 +130,7 @@ function processDir(indir, outdir) {
         else {
             if (/\.dev[.a-zA-Z]*$/.test(entry))
                 continue;
-            else if (entry.endsWith(".html")) {
+            else if (entry.endsWith(".html") || entry.endsWith(".xml")) {
                 const raw = include(inPath);
                 const evald = evalTemplate(raw);
 

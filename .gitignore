@@ -1,1 +1,8 @@
 /build
+
+# Ignore vim files:
+*~
+*.swp
+*.swo
+.*.swp
+.*.swo
