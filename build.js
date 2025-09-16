@@ -61,41 +61,20 @@
  *                  Remember that paths are relative to the current working
  *              directory, which is assumed to be /website.
  *
- *          includeTemplate(path, ...params)
+ *          includeTemplate(path, params[, encoding=utf8])
  *                  The includeTemplate function includes a file, but treats
  *              the data as another template to evaluate. When doing this, the 
  *              file is expected to have template-literal like blocks with 
  *              named ${identifiers} in them.
- *                  ...params is a group of parameters that you wish to replace
- *              the identifiers with.
+ *                  ...params is a javascript object of parameters that you 
+ *              wish to replace the identifiers with.
  *                  If this is confusing, the example may help illustrate.
  *
  *                  Example:
  *                      example.html
  *                          <h1>${title}</h1>
  *
- *                      ${includeTemplate("./src/example.html", "My cool title")}
- *
- *                  It is important to note that, when evaluated, the named 
- *              identifier "title" will be set equal to "My cool title". At the
- *              moment it is not possible for the target component to have 
- *              complex functionality within it's ${}s. But I hope in the 
- *              future to refactor this function to allow for it.
- *                  It is also important to note that having other encodings is
- *              also not possible. 
- *
- *
- *          includeEval(path[, encoding=utf8)
- *                  includeEval includes a file but evaluates it as a raw 
- *              template. The difference between this and includeTemplate is
- *              that this function does not map it's evaluation to parsed
- *              parameters. Instead it just performs it as if it were another
- *              file.
- *                  This is useful when you want to include components that
- *              include other components within them.
- *
- *                  Example:
- *                      ${includeEval("./src/nav.dev.html")}
+ *                      ${includeTemplate("./src/example.html", { title: "My cool title" } )}
  */
 
 const { readFileSync, writeFileSync, copyFileSync, rmSync, readdirSync, lstatSync, mkdirSync } = require("fs");
@@ -107,7 +86,7 @@ const path = require("path");
 // writing pages.
 // All functions must evaluate to a string.
 
-const evalScope = [include, includeTemplate, includeEval]    
+const evalScope = [include, includeTemplate]    
                                                 // It is required to explicitly 
                                                 // pass the functions that we 
                                                 // allow the preprocesser to use
@@ -124,22 +103,11 @@ function include(filepath, { encoding = "utf8" } = {}) {
 }
 
 
-/// Includes a file but treats it as a template string to apply ...params to
-function includeTemplate(path, ...params) {
-    const data = include(path, "utf8");         // TODO: allow multiple encodings
-    
-    // Collecting arg names
-    const argNames = [...data.matchAll(/\$\{([^}]+)\}/g)].map(match => match[0].slice(2, -1));
-    
-    // Applying args
-    return new Function(...argNames, `return \`${data}\`;`)(...params);
-}
-
-
-/// Includes a file but treats it as a template string to call evalTemplate on
-function includeEval(path, { encoding = "utf8" } = {}) {
+/// Includes a file but treats it as a template string to apply params to
+function includeTemplate(path, params, { encoding = "utf8" } = {}) {
     const data = include(path, encoding);
-    return evalTemplate(data);
+
+    return new Function(...Object.keys(params), `return \`${data}\`;`)(...Object.values(params));
 }
 
 

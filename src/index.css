@@ -1,12 +1,16 @@
 /* Defaults and variables */
 
 :root {
-    --background-color: #FBF8EB; 
-    --secondary-background-color: #F7F7D8;
-    --font-color: #525252;
-    --lightfont-color: #747474;
-    --link-color: #7272A5;
-    --link-hover-color: #7272C7;
+    color-scheme: light dark;
+    --background-color: light-dark(#FBF8EB, #242424); 
+    --secondary-background-color: light-dark(#F7F7D8, #2D2D2D);
+    --font-color: light-dark(#525252, #F2F2F2);
+    --lightfont-color: light-dark(#747474, #FFF);
+    --link-color: light-dark(#7272A5, #9C9CD0);
+    --link-hover-color: light-dark(#7272C7, #50508A);
+
+    &:has(#theme-light:checked) { color-scheme: light; }
+    &:has(#theme-dark:checked) { color-scheme: dark; }
 }
 
 * {
