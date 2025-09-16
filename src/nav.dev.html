@@ -19,7 +19,7 @@
     width: 100%;
     align-items: center;
 
-    border-bottom: solid 1px black;
+    border-bottom: solid 1px var(--lightfont-color);
 
     gap: 4em;
 
@@ -55,13 +55,15 @@
     #head-main {
         justify-content: center;
         flex-wrap: wrap;
+        flex-direction: column;
         gap: 1em;
 
         & > h1 {
-            font-size: 4em;
+            display: none;
         }
 
         & > nav {
+            margin-left: 0;
             & > a, & > a:visited {
                 font-size: 2em;
             }
