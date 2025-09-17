@@ -8,9 +8,15 @@
     --lightfont-color: light-dark(#747474, #FFF);
     --link-color: light-dark(#7272A5, #9C9CD0);
     --link-hover-color: light-dark(#7272C7, #50508A);
+    --warning-border: light-dark(#FAA, #F00);
+    --warning-background: light-dark(#3AA, #300);
 
     &:has(#theme-light:checked) { color-scheme: light; }
     &:has(#theme-dark:checked) { color-scheme: dark; }
+
+    @media (prefers-color-scheme: dark) {
+        color-scheme: dark;
+    }
 }
 
 * {
@@ -44,4 +50,15 @@ a, a:visited {
 
 a:hover {
     color: var(--link-hover-color);
+}
+
+.warning {
+    background-color: var(--warning-background);
+    border-color: var(--warning-border);
+    border-width: 2px;
+    border-style: solid;
+    
+    padding: 0.5em;
+    margin: 1em auto;
+    width: max-content;
 }

@@ -3,9 +3,14 @@
 
     <label for="themes">Theme: </label>
     <select name="themes" id="theme-selector">
+        <option>Select theme</option>
         <option value="light" id="theme-light">Light</option>
         <option value="dark" id="theme-dark">Dark</option>
     </select>
+
+    <noscript class="warning">
+        You don't have Javascript enabled, the theme will not persist on reload.
+    </noscript>
 
     <br>
     <br>
@@ -22,3 +27,16 @@
         text-align: center;
     }
 </style>
+
+<script>
+    document.getElementById("theme-selector").onchange = e => {
+        document.documentElement.style = "";            // Resetting style so that preloaded style doesn't override
+        localStorage.setItem("theme", e.target.value);
+    }
+
+    const lastTheme = localStorage.getItem("theme");
+    console.log(lastTheme);
+
+    if (lastTheme)
+        document.documentElement.style.colorScheme = lastTheme;
+</script>
