@@ -5,7 +5,10 @@ on:
     branches:
         - master
   workflow_dispatch:
-      
+
+permissions:
+  contents: write
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,8 +23,8 @@ jobs:
       
       - name: Setup github bot
         run: |
-            git config --global user.name "GitHub Actions"
-            git config --global user.email "bot"
+            git config --global user.name "${GITHUB_ACTOR}"
+            git config --global user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com"
       
       - name: Build and stash site
         run: |
@@ -37,5 +40,7 @@ jobs:
             cp -r untracked_build/* .
             rm -rf untracked_build
             git add .
-            git commit -m "Deploy from master branch"
+            git commit -m "Deploy from master branch" || echo "No changes to commit"
             git push origin gh-pages --force
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
