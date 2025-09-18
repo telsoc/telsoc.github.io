@@ -6,10 +6,13 @@
         <link rel="stylesheet" href="/index.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="Official website for Aberystwyth University telsoc" />
+        <link rel="alternate" type="application/rss+xml" title="Telsoc Blog RSS" href="./rss.xml" />
     </head>
     
     <body>
         ${include("./src/nav.dev.html")}
+
+        <p>You can subscribe to the <a href="./rss.xml">RSS feed</a></p>
 
         ${
             readdirSync("./src/blog/", {withFileTypes: true})
