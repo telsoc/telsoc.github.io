@@ -1,0 +1,9 @@
+${(function x() {
+    const args = JSON.parse(include("./src/blog/test/post.dev.json"));
+    const passone = includeTemplate("./src/blog/post.dev.html", args);
+
+    args.link = "";
+
+    with (args)
+        return eval(`\`${passone}\``);
+})()}

@@ -15,8 +15,12 @@
 
         <hr>
 
-        ${content}
+        ${includeTemplate(content, {})}
 
         ${include("./src/footer.dev.html")}
+        
+        <style>
+            @import "../index.css";
+        </style>
     </body>
 </html>

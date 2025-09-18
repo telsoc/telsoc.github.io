@@ -28,7 +28,7 @@
                     <item>
                         <title>${post.title}</title>
                         <link>${post.link}</link>
-                        <description>${post.content.slice(0, 20) + "..."}</description>
+                        <description>${post.description}</description>
                         <pubDate>${new Date(`${post.postTime}`).toISOString()}</pubDate>
                     </item>
                 `;
