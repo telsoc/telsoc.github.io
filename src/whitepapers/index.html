@@ -10,19 +10,20 @@
     </head>
     
     <body>
-        ${include("./src/nav.dev.html")}
+        ${ include("./src/nav.dev.html") }
 
         <div id="papers">
-            ${includeTemplate("./src/whitepapers/paper.dev.html", {
-                time: "2025-09-22 18:02", 
-                title: "Title", 
-                credits: "Author(s)", 
-                view: "#", 
-                download: "#", 
-                description: "Description"
-            })}
+            ${ includeTemplate("./src/whitepapers/paper.dev.html", {
+                    time: "2025-09-22 18:02", 
+                    title: "Title", 
+                    credits: "Author(s)", 
+                    view: "#", 
+                    download: "#", 
+                    description: "Description"
+                })
+            }
         </div>
         
-        ${include("./src/footer.dev.html")}
+        ${ include("./src/footer.dev.html") }
     </body>
 </html>

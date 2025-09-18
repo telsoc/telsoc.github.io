@@ -10,24 +10,25 @@
     </head>
     
     <body>
-        ${include("./src/nav.dev.html")}
+        ${ include("./src/nav.dev.html") }
 
         <h1>Active Projects</h1>
 
         <div id="projects">
-            ${includeTemplate("./src/projects/project.dev.html", {
-                links: [
-                    ["Example", "#"],
-                    ["Example2", "#"]
-                ], 
-                path: "", 
-                title: "Title", 
-                description: "Description"
-            })}
+            ${ includeTemplate("./src/projects/project.dev.html", {
+                    links: [
+                        ["Example", "#"],
+                        ["Example2", "#"]
+                    ], 
+                    path: "", 
+                    title: "Title", 
+                    description: "Description"
+                })
+            }
         </div>
 
         <h1>Completed Projects</h1>
         
-        ${include("./src/footer.dev.html")}
+        ${ include("./src/footer.dev.html") }
     </body>
 </html>

@@ -1,4 +1,13 @@
-${includeTemplate("./src/blog/post.dev.html", { postpath: CURRENT_DIR, ...JSON.parse(include(`${CURRENT_DIR}/post.dev.json`)) })}
+${ 
+    includeTemplate(
+        "./src/blog/post.dev.html", 
+        { 
+            postpath: CURRENT_DIR, 
+            ...JSON.parse(include(`${CURRENT_DIR}/post.dev.json`)) 
+        }
+    ) 
+}
+
 <template>
     <h1>test</h1>
 </template>
