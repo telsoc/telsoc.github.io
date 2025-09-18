@@ -86,10 +86,11 @@ const path = require("path");
 // writing pages.
 // All functions must evaluate to a string.
 
-const evalTemplate = (template) => {
-    //console.log(template);
-    return eval(`\`${template}\``);
+const evalTemplate = (template, namespace) => {
+    with (namespace)
+        return eval(`\`${template}\``);
 }
+
 
 /// Includes the contents of a file exactly as-is
 function include(filepath, { encoding = "utf8" } = {}) {
@@ -99,12 +100,15 @@ function include(filepath, { encoding = "utf8" } = {}) {
 
 
 /// Includes a file but treats it as a template string to apply params to
-function includeTemplate(path, params, { encoding = "utf8" } = {}) {
-    const data = include(path, encoding);
+function includeTemplate(filepath, params, { encoding = "utf8" } = {}) {
+    const raw = include(filepath, encoding);
 
-//    return new Function(...Object.keys(params), `return \`${data}\`;`)(...Object.values(params));
-    with (params) 
-        return eval(`\`${data}\``);
+    return evalTemplate(raw, { 
+        ...params,
+        CURRENT_FILE: filepath,
+        CURRENT_PATH: path.parse(filepath).base,
+        CURRENT_DIR: path.parse(filepath).dir
+    });
 }
 
 
@@ -125,14 +129,20 @@ function processDir(indir, outdir) {
 
         const isDirectory = lstatSync(inPath).isDirectory();
 
-        if (isDirectory)
+        if (isDirectory) {
+            if (/\.dev[.a-zA-Z]*$/.test(entry))
+                continue;
             processDir(inPath, outPath);
-        else {
+        } else {
             if (/\.dev[.a-zA-Z]*$/.test(entry))
                 continue;
             else if (entry.endsWith(".html") || entry.endsWith(".xml")) {
                 const raw = include(inPath);
-                const evald = evalTemplate(raw);
+                const evald = evalTemplate(raw, {
+                    CURRENT_FILE: entry,
+                    CURRENT_PATH: inPath,
+                    CURRENT_DIR: path.parse(inPath).dir
+                });
 
                 mkdirSync(path.dirname(outPath), { recursive: true });
                 writeFileSync(outPath, evald, "utf8");

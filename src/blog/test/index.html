@@ -1,9 +1,4 @@
-${(function x() {
-    const args = JSON.parse(include("./src/blog/test/post.dev.json"));
-    const passone = includeTemplate("./src/blog/post.dev.html", args);
-
-    args.link = "";
-
-    with (args)
-        return eval(`\`${passone}\``);
-})()}
+${includeTemplate("./src/blog/post.dev.html", { postpath: CURRENT_DIR, ...JSON.parse(include(`${CURRENT_DIR}/post.dev.json`)) })}
+<template>
+    <h1>test</h1>
+</template>
