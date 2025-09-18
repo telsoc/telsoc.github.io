@@ -34,8 +34,8 @@ jobs:
         run: |
             git checkout gh-pages || git checkout -b gh-pages
             git rm -rf .
-            cp -r temp_build/* .
-            rm -rf temp_build
+            cp -r untracked_build/* .
+            rm -rf untracked_build
             git add .
             git commit -m "Deploy from master branch"
             git push origin gh-pages --force
