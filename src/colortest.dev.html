@@ -9,14 +9,35 @@
     </head>
     
     <body>
+        <label for="themes">Theme: </label>
+        <select name="themes" id="theme-selector">
+            <option value="light" id="theme-light">Light</option>
+            <option value="dark" id="theme-dark">Dark</option>
+        </select>
+
+        <hr>
+
         <h1>Heading 1</h1>
         <h2>Heading 2</h2>
         <h3>Heading 3</h3>
         <h4>Heading 4</h4>
         <h5>Heading 5</h5>
         <h6>Heading 6</h6>
+
         <p>Paragraph<p>
+
         <a href="#">Link</a>
+
+        <ol>
+            <li>Ordered</li>
+            <li>list</li>
+        </ol>
+
+        <ul>
+            <li>Unordered</li>
+            <li>list</li>
+        </ul>
+
         <hr>
         <label for="radiotest">Radio button: </label>
         <input type="radio" name="r" id="radiotest">
@@ -32,6 +53,16 @@
         <input type="button" id="buttontest" value="Button">
         <input type="button" id="buttontest" value="Button" disabled> <br> <br>
 
+        <select>
+            <option>Selector</option>
+            <option>with</option>
+            <option>options</option>
+        </select>
+
+        <select disabled>
+            <option>Selector</option>
+        </select>
+
         <hr>
 
         <div style="display: flex; flex-wrap: wrap;">
@@ -41,13 +72,8 @@
             <div style="width: 10vw; height:10vh; background-color: var(--lightfont-color)">L. Font</div>
             <div style="width: 10vw; height:10vh; background-color: var(--link-color)">Link</div>
             <div style="width: 10vw; height:10vh; background-color: var(--link-hover-color)">Link Hover</div>
+            <div style="width: 10vw; height:10vh; background-color: var(--warning-border)">Warning border</div>
+            <div style="width: 10vw; height:10vh; background-color: var(--warning-background)">Warning background</div>
         </div>
-
-        <label for="themes">Theme: </label>
-        <select name="themes" id="theme-selector">
-            <option value="light" id="theme-light">Light</option>
-            <option value="dark" id="theme-dark">Dark</option>
-        </select>
-
     </body>
 </html>
