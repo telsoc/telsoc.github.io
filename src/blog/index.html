@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Telsoc Blog</title>
+        <link rel="stylesheet" href="/index.css">
+        <link rel="stylesheet" href="./index.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Official blog for Telsoc" />
+        <link rel="alternate" type="application/rss+xml" title="Telsoc Blog RSS" href="./rss.xml" />
+    </head>
+    
+    <body>
+        ${include("./src/nav.dev.html")}
+
+        <p>You can subscribe to the <a href="./rss.xml">RSS feed</a></p>
+
+        ${
+            readdirSync("./src/blog/", {withFileTypes: true})
+                .filter(path => path.isDirectory())
+                .map(dir => {
+                    const template = "./src/blog/postpreview.dev.html";
+                    let args = JSON.parse(include(`${dir.path}${dir.name}/post.dev.json`));
+
+                    if (!args.link)
+                        args.link = "/blog/" + dir.name;
+
+                    return includeTemplate(template, args);
+                })
+                .join("")
+        }
+        
+        ${include("./src/footer.dev.html")}
+    </body>
+</html>

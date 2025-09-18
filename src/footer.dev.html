@@ -1,0 +1,53 @@
+<footer id="footer-main">
+    <hr>
+
+    <label for="themes">Theme: </label>
+    <select name="themes" id="theme-selector">
+        <option selected disabled hidden>Select theme</option>
+        <option value="light" id="theme-light">Light</option>
+        <option value="dark" id="theme-dark">Dark</option>
+    </select>
+
+    <br>
+
+    <noscript class="warning" id="noscript-warning">
+        You don't have Javascript enabled, the theme will not persist on reload.
+    </noscript>
+
+    <br>
+
+    <a href="https://github.com/telsoc">Github</a> <a href="/contact">Contact</a>
+
+    &#169; 2025, Telsoc Group
+
+</footer>
+
+<style>
+    #footer-main {
+        color: var(--lightfont-color);
+        text-align: center;
+    }
+
+    #noscript-warning {
+        color: var(--font-color);
+    }
+</style>
+
+<script>
+    const themeSelector = document.getElementById("theme-selector")
+
+    // Saving the changes when the user selects an option
+    themeSelector.onchange = e => {
+        document.documentElement.style = "";            // Resetting style so that preloaded style doesn't override
+        localStorage.setItem("theme", e.target.value);
+    }
+
+    // Loading saved theme if it exists
+    const lastTheme = localStorage.getItem("theme");
+    console.log(lastTheme);
+
+    if (lastTheme) {
+        document.documentElement.style.colorScheme = lastTheme;
+        themeSelector.value = lastTheme;
+    }
+</script>

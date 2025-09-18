@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+    <channel>
+        <title>Telsoc Blog</title>
+        <link>https://telsoc.github.io</link>
+        <description>A collection of posts curated by members of the Telsoc team</description>
+
+        ${(function calcRss() {
+            const stats = readdirSync("./src/blog/", {withFileTypes: true})
+                .filter(path => path.isDirectory())
+                .map(dir => {
+                    let args = JSON.parse(include(`${dir.path}${dir.name}/post.dev.json`));
+
+                    if (!args.link)
+                        args.link = "https://telsoc.github.io/blog/" + dir.name;
+                    return args;
+                });
+
+            stats.sort((a, b) => {
+                const dateA = new Date(`${a.postTime}`).getTime();
+                const dateB = new Date(`${b.postTime}`).getTime();
+
+                return dateB - dateA;
+            })
+
+            return stats.map(post => {
+                return `
+                    <item>
+                        <title>${post.title}</title>
+                        <link>${post.link}</link>
+                        <description>${post.description}</description>
+                        <pubDate>${new Date(`${post.postTime}`).toISOString()}</pubDate>
+                    </item>
+                `;
+            }).join("");
+        }())}
+    </channel>
+</rss>

@@ -1,0 +1,41 @@
+name: Create build of website
+
+on:
+  push:
+    branches:
+        - master
+  workflow_dispatch:
+      
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps: 
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20" 
+      
+      - name: Setup github bot
+        run: |
+            git config --global user.name "GitHub Actions"
+            git config --global user.email "bot"
+      
+      - name: Build and stash site
+        run: |
+            git checkout master
+            node build.js src
+            mkdir untracked_build
+            cp -r build/* untracked_build
+
+      - name: Switch to gh-pages and commit
+        run: |
+            git checkout gh-pages || git checkout -b gh-pages
+            git rm -rf .
+            cp -r temp_build/* .
+            rm -rf temp_build
+            git add .
+            git commit -m "Deploy from master branch"
+            git push origin gh-pages --force

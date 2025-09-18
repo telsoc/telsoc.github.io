@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>${title}</title>
+        <link rel="stylesheet" href="/index.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Official website for Aberystwyth University telsoc" />
+    </head>
+
+    <body>
+        ${include("./src/nav.dev.html")}
+
+        ${include("./src/blog/postpreview.dev.html")}
+
+        <hr>
+
+        ${includeTemplate(content, {})}
+
+        ${include("./src/footer.dev.html")}
+        
+        <style>
+            @import "../index.css";
+        </style>
+    </body>
+</html>

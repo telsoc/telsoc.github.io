@@ -1,0 +1,64 @@
+/* Defaults and variables */
+
+:root {
+    color-scheme: light dark;
+    --background-color: light-dark(#FBF8EB, #242424); 
+    --secondary-background-color: light-dark(#F7F7D8, #2D2D2D);
+    --font-color: light-dark(#424242, #E1E1E1);
+    --lightfont-color: light-dark(#808080, #B5B5B5); /* TODO: change name to accentfont-color, as it's more clear */
+    --link-color: light-dark(#7272A5, #9C9CD0);
+    --link-hover-color: light-dark(#7272C7, #50508A);
+    --warning-border: light-dark(#F00, #F00);
+    --warning-background: light-dark(#FCC, #300);
+
+    &:has(#theme-light:checked) { color-scheme: light; }
+    &:has(#theme-dark:checked) { color-scheme: dark; }
+
+    @media (prefers-color-scheme: dark) {
+        color-scheme: dark;
+    }
+}
+
+* {
+    font-family: sans-serif;
+}
+
+body {
+    width: 80em;
+    margin: auto;
+    
+    background-color: var(--background-color);
+}
+
+html {
+    background-color: var(--background-color);
+}
+
+@media only screen and (max-width: 1280px) {
+    body {
+        width: 95%;        
+    }
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    color: var(--font-color);
+}
+
+a, a:visited {
+    color: var(--link-color);
+}
+
+a:hover {
+    color: var(--link-hover-color);
+}
+
+.warning {
+    background-color: var(--warning-background);
+    border-color: var(--warning-border);
+    border-width: 2px;
+    border-style: solid;
+    
+    padding: 0.5em;
+    margin: 1em auto;
+    width: max-content;
+}

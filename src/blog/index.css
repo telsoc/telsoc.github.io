@@ -1,0 +1,32 @@
+.post {
+    margin: 1em auto 1em auto;
+    padding: 1em;
+
+    border-radius: 20px;
+    background-color: var(--secondary-background-color);
+
+    & > h2 {
+        font-size: 50px;
+        margin: 0;
+
+        & > a {
+            text-decoration: none;
+        }
+    }
+
+    & > p {
+        margin: 5px;
+    }
+
+    & > .tags {
+        display: flex;
+        flex-wrap: wrap;
+
+        & > span {
+            background-color: var(--background-color);
+            border-radius: 20px;
+            padding: 0.5em;
+            margin: 0.1em;
+        }
+    }
+}
