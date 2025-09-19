@@ -18,6 +18,7 @@
         ${
             readdirSync("./src/blog/", {withFileTypes: true})
                 .filter(path => path.isDirectory())
+                .filter(path => /\.dev[.a-zA-Z]*$/.test(path))
                 .map(dir => {
                     const template = "./src/blog/postpreview.dev.html";
                     let args = JSON.parse(include(`${dir.path}${dir.name}/post.dev.json`));
