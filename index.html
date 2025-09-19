@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Telsoc</title>
+        <link rel="stylesheet" href="/index.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Official website for Telsoc" />
+    </head>
+    
+    <body>
+        <header id="head-main">
+    <h1>Telsoc</h1>
+    <img src="" width="128" height="128" id="logo" alt="logo" />
+    <nav>
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        <a href="/whitepapers">Whitepapers</a>
+        <a href="/projects">Projects</a>
+    </nav>
+</header>
+
+<style>
+#head-main {
+    display: flex;
+
+    padding: 1em 0;
+
+    height: fit-content;
+    width: 100%;
+    align-items: center;
+
+    border-bottom: solid 1px var(--lightfont-color);
+
+    gap: 4em;
+
+    & > h1 {
+        margin: 0;
+        font-size: 8em;
+        font-weight: bold;
+    }
+
+    & > nav {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        margin-left: auto;
+        height: 100%;
+
+        & > a, & > a:visited {
+            color: var(--link-color);
+
+            font-size: 3em;
+            font-weight: bold;
+            text-decoration: none;
+            text-align: center;
+            
+            &:hover {color: var(--link-hover-color);}
+        }
+
+    }
+}
+
+
+@media only screen and (max-width: 1280px) {
+    #head-main {
+        justify-content: center;
+        flex-wrap: wrap;
+        flex-direction: column;
+        gap: 1em;
+
+        & > h1 {
+            display: none;
+        }
+
+        & > nav {
+            margin-left: 0;
+            & > a, & > a:visited {
+                font-size: 2em;
+            }
+        }
+    }
+}
+</style>
+
+
+	<h1>Welcome to the Website of Telsoc!</h1>
+	<p>We are a collection of students (though people are welcome regardless of background), with interests in telecommunications technologies, including radio and computer networking.</p>
+	<p>You can contact us at our <a href="#">Discord Server</a>.</p>
+	<p>We have a collection of projects (see above link), and anyone is welcome to join in with them.</p>
+	<p>To be completely honest, we're pretty small at the moment, and don't have any gear (beyond our laptops), though we are actively looking into things (ham radio kinda stuff). If nothing else, we're (and I hope you'd agree if you speak to us) a friendly group, and more than happy to discuss things.</p>
+	
+        <footer id="footer-main">
+    <hr>
+
+    <label for="themes">Theme: </label>
+    <select name="themes" id="theme-selector">
+        <option selected disabled hidden>Select theme</option>
+        <option value="light" id="theme-light">Light</option>
+        <option value="dark" id="theme-dark">Dark</option>
+    </select>
+
+    <br>
+
+    <noscript class="warning" id="noscript-warning">
+        You don't have Javascript enabled, the theme will not persist on reload.
+    </noscript>
+
+    <br>
+
+    <a href="https://github.com/telsoc">Github</a> <a href="/contact">Contact</a>
+
+    &#169; 2025, Telsoc Group
+
+</footer>
+
+<style>
+    #footer-main {
+        color: var(--lightfont-color);
+        text-align: center;
+    }
+
+    #noscript-warning {
+        color: var(--font-color);
+    }
+</style>
+
+<script>
+    const themeSelector = document.getElementById("theme-selector")
+
+    // Saving the changes when the user selects an option
+    themeSelector.onchange = e => {
+        document.documentElement.style = "";            // Resetting style so that preloaded style doesn't override
+        localStorage.setItem("theme", e.target.value);
+    }
+
+    // Loading saved theme if it exists
+    const lastTheme = localStorage.getItem("theme");
+    console.log(lastTheme);
+
+    if (lastTheme) {
+        document.documentElement.style.colorScheme = lastTheme;
+        themeSelector.value = lastTheme;
+    }
+</script>
+
+    </body>
+</html>
