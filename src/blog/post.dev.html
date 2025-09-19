@@ -19,10 +19,10 @@
         ${(() => {
             const data = include(`${postpath}/index.html`); 
 
-            const start = data.indexOf("<template>");
-            const end = data.indexOf("</template>");
+            const start = data.indexOf("<!--");
+            const end = data.indexOf("-->");
 
-            const full = data.substring(start, end).replace("<template>", "");
+            const full = data.substring(start, end).replace("<!--", "");
 
             return full;
         })()}
